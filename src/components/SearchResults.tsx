@@ -1,11 +1,11 @@
 import React from 'react';
-import { Flight, Hotel, Train as TrainType } from '../data/mockData';
+import { Flight, Hotel,  } from '../data/mockData';
 import { Star, Clock, Users } from 'lucide-react';
 
 interface SearchResultsProps {
-  type: 'flight' | 'hotel' | 'train';
-  results: (Flight | Hotel | TrainType)[];
-  onBook: (item: Flight | Hotel | TrainType) => void;
+  type: 'flight' | 'hotel' ;
+  results: (Flight | Hotel )[];
+  onBook: (item: Flight | Hotel ) => void;
 }
 
 const SearchResults: React.FC<SearchResultsProps> = ({ type, results, onBook }) => {
@@ -80,43 +80,15 @@ const SearchResults: React.FC<SearchResultsProps> = ({ type, results, onBook }) 
     </div>
   );
 
-  const renderTrain = (train: TrainType) => (
-    <div key={train.id} className="bg-white rounded-lg shadow-md p-6 mb-4">
-      <div className="flex justify-between items-center mb-4">
-        <div>
-          <h3 className="text-xl font-semibold">Train {train.trainNumber}</h3>
-          <p className="text-gray-600">{train.from} → {train.to}</p>
-        </div>
-        <div className="text-right">
-          <p className="text-2xl font-bold text-blue-600">${train.price}</p>
-          <p className="text-gray-500">per person</p>
-        </div>
-      </div>
-      <div className="flex items-center gap-4 mb-4">
-        <div className="flex items-center gap-2">
-          <Clock className="w-4 h-4 text-gray-500" />
-          <span>{train.duration}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Users className="w-4 h-4 text-gray-500" />
-          <span>{train.seats} seats available</span>
-        </div>
-      </div>
-      <button
-        onClick={() => onBook(train)}
-        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
-      >
-        Book Now
-      </button>
-    </div>
-  );
+ 
+
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {results.map((item) => {
         if (type === 'flight' && 'airline' in item) return renderFlight(item as Flight);
         if (type === 'hotel' && 'rating' in item) return renderHotel(item as Hotel);
-        if (type === 'train' && 'trainNumber' in item) return renderTrain(item as TrainType);
+      
         return null;
       })}
     </div>
