@@ -11,7 +11,7 @@ const TopCities = () => {
 
 
   return (
-    <section className="relative bg-gray-900 text-white py-20 px-6 md:px-16 overflow-hidden">
+    <section className=" mt-15 relative bg-gray-900 text-white py-20 px-6 md:px-16 overflow-hidden">
       {/* 🌊 Animated Background Wave Effect */}
       <div className="absolute top-0 left-0 w-full h-full bg-[url('/images/wave-bg.svg')] bg-cover opacity-20 animate-moveBackground"></div>
 
