@@ -12,8 +12,8 @@ import { flights, hotels } from "./data/mockData";
 import type { Flight, Hotel } from "./data/mockData";
 import SearchResults from "./components/SearchResults";
 import { motion } from "framer-motion";
-import Topcities from './components/top_cities/topcities';
-import TopHotels from './components/top_hotels/tophotels';
+import Topcities from "./components/top_cities/topcities";
+import TopHotels from "./components/top_hotels/tophotels";
 import Footer from "./components/footer/page";
 import FaqSection from "./components/faq/page (1)";
 import PaymentOptions from "./components/Payment_option/page";
@@ -40,52 +40,78 @@ function App() {
     setShowResults(false);
   };
 
-  
   const getFilteredResults = () => {
-    if (!searchParams.from?.trim() && !searchParams.to?.trim() && !searchParams.departureDate?.trim() && !searchParams.returnDate?.trim()) {
+    if (
+      !searchParams.from?.trim() &&
+      !searchParams.to?.trim() &&
+      !searchParams.departureDate?.trim() &&
+      !searchParams.returnDate?.trim()
+    ) {
       return []; // No filters applied, return empty
     }
-  
-    const results = activeBooking === 'flight' ? flights 
-                  : activeBooking === 'hotel' ? hotels 
-                  : [];
-  
+
+    const results =
+      activeBooking === "flight"
+        ? flights
+        : activeBooking === "hotel"
+        ? hotels
+        : [];
+
     return results.filter((item) => {
-      if (activeBooking === 'flight' && searchParams.departureDate?.trim() && searchParams.departureDate !== (item as Flight).departureDate) {
+      if (
+        activeBooking === "flight" &&
+        searchParams.departureDate?.trim() &&
+        searchParams.departureDate !== (item as Flight).departureDate
+      ) {
         return false;
       }
-  
-      if (activeBooking === 'flight' && searchParams.returnDate?.trim() && searchParams.returnDate !== (item as Flight).returnDate) {
+
+      if (
+        activeBooking === "flight" &&
+        searchParams.returnDate?.trim() &&
+        searchParams.returnDate !== (item as Flight).returnDate
+      ) {
         return false;
       }
-  
+
       if (searchParams.from?.trim()) {
-        const locationCheck = activeBooking === 'hotel' 
-          ? (item as Hotel).location.toLowerCase().includes(searchParams.from.toLowerCase())
-          : (item as Flight).from.toLowerCase().includes(searchParams.from.toLowerCase());
-  
+        const locationCheck =
+          activeBooking === "hotel"
+            ? (item as Hotel).location
+                .toLowerCase()
+                .includes(searchParams.from.toLowerCase())
+            : (item as Flight).from
+                .toLowerCase()
+                .includes(searchParams.from.toLowerCase());
+
         if (!locationCheck) return false;
       }
-  
-      if (activeBooking === 'flight' && searchParams.to?.trim() && !(item as Flight).to.toLowerCase().includes(searchParams.to.toLowerCase())) {
+
+      if (
+        activeBooking === "flight" &&
+        searchParams.to?.trim() &&
+        !(item as Flight).to
+          .toLowerCase()
+          .includes(searchParams.to.toLowerCase())
+      ) {
         return false;
       }
-  
+
       if (searchParams.travelers?.trim()) {
-        const numTravelers = parseInt(searchParams.travelers.split(' ')[0], 10);
+        const numTravelers = parseInt(searchParams.travelers.split(" ")[0], 10);
         if (isNaN(numTravelers)) return false;
-  
-        if (activeBooking === 'flight') {
+
+        if (activeBooking === "flight") {
           if (numTravelers > (item as Flight).seats) return false;
-        } else if (activeBooking === 'hotel') {
+        } else if (activeBooking === "hotel") {
           if (numTravelers > (item as Hotel).rooms * 2) return false;
         }
       }
-  
+
       return true;
     });
   };
-  
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       {/* Hero Section */}
@@ -291,6 +317,7 @@ function App() {
             <SearchResults
               type={activeBooking}
               results={getFilteredResults()}
+              cityName={searchParams.from} // ✅ Pass the city name from searchParams
               onBook={handleBook}
             />
           </motion.div>
