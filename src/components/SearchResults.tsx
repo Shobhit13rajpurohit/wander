@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flight, Hotel,  } from '../data/mockData';
 import { Star, Clock, Users } from 'lucide-react';
-
+import HotelList from './HotelList';
 interface SearchResultsProps {
   type: 'flight' | 'hotel' ;
   results: (Flight | Hotel )[];
@@ -82,13 +82,10 @@ const SearchResults: React.FC<SearchResultsProps> = ({ type, results, onBook }) 
 
  
 
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {results.map((item) => {
-        if (type === 'flight' && 'airline' in item) return renderFlight(item as Flight);
-        if (type === 'hotel' && 'rating' in item) return renderHotel(item as Hotel);
-      
+      {type === 'hotel' ? <HotelList /> : results.map((item) => {
+        if (type === 'flight' && 'airline' in item) return renderFlight(item);
         return null;
       })}
     </div>
