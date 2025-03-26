@@ -1,5 +1,5 @@
 import { getAccessToken } from "./auth";
-import { getCityCodeFromName } from "./cityApi"; 
+import { getCityCodeFromName } from "./cityapi"; 
 
 export const getHotelsByCityName = async (cityName: string) => {
   const cityCode = await getCityCodeFromName(cityName);
