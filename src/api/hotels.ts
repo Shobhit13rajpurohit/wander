@@ -41,7 +41,7 @@ export const getHotelsByCityName = async (cityName: string) => {
       id: hotel.hotelId,
       name: hotel.name,
       location: hotel.address?.lines?.join(", ") || "",
-      image: hotel.media?.[0]?.uri || "https://via.placeholder.com/300",
+      image: hotel.media?.[0]?.uri || "https://source.unsplash.com/400x300/?hotel",
       rating: offer?.hotel?.rating || "N/A",
       price: offer?.offers?.[0]?.price?.total || "N/A",
       amenities: hotel.amenities || [],
