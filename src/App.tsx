@@ -15,7 +15,7 @@ import { motion } from "framer-motion";
 import Topcities from "./components/top_cities/topcities";
 
 import TopHotels from "./components/top_hotels/tophotels";
-import HotelOffersList from "./components/HotelOffersList";
+
 import Footer from "./components/footer/page";
 import FaqSection from "./components/faq/page (1)";
 import PaymentOptions from "./components/Payment_option/page";
@@ -373,7 +373,7 @@ function App() {
       <Topcities />
 
       <TopHotels />
-      <HotelOffersList />
+      
       <PaymentOptions />
       <CryptoSection />
       <FaqSection />
