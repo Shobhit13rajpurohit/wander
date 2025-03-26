@@ -18,6 +18,7 @@ import Footer from "./components/footer/page";
 import FaqSection from "./components/faq/page (1)";
 import PaymentOptions from "./components/Payment_option/page";
 import CryptoSection from "./components/crypto/page";
+import Header from "./components/header/page";
 type BookingType = "flight" | "hotel";
 
 function App() {
@@ -113,8 +114,11 @@ function App() {
   };
 
   return (
+
+  
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       {/* Hero Section */}
+      <Header />
       <div
         className="h-[60vh] bg-cover bg-center relative"
         style={{
