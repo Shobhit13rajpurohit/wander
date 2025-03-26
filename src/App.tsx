@@ -13,7 +13,9 @@ import type { Flight, Hotel } from "./data/mockData";
 import SearchResults from "./components/SearchResults";
 import { motion } from "framer-motion";
 import Topcities from "./components/top_cities/topcities";
+
 import TopHotels from "./components/top_hotels/tophotels";
+import HotelOffersList from "./components/HotelOffersList";
 import Footer from "./components/footer/page";
 import FaqSection from "./components/faq/page (1)";
 import PaymentOptions from "./components/Payment_option/page";
@@ -369,7 +371,9 @@ function App() {
         )}
       </div>
       <Topcities />
+
       <TopHotels />
+      <HotelOffersList />
       <PaymentOptions />
       <CryptoSection />
       <FaqSection />
