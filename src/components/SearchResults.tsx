@@ -3,6 +3,20 @@ import { Flight, Hotel } from "../data/mockData";
 import { Star, Clock, Users } from "lucide-react";
 import HotelList from "./HotelList";
 
+
+// reactstrap components
+import {
+  Button,
+  Card,
+  CardBody,
+  CardImg,
+  CardTitle,
+  CardText,
+} from "reactstrap";
+
+const cardStyle = { width: "18rem" };
+
+
 interface SearchResultsProps {
   type: "flight" | "hotel";
   results: (Flight | Hotel)[];
@@ -12,22 +26,34 @@ interface SearchResultsProps {
 
 const SearchResults: React.FC<SearchResultsProps> = ({ type, results, onBook, cityName }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-6">
       {type === "hotel" ? (
-        <HotelList cityName={cityName} /> // ✅ Now passing cityName
+      <HotelList cityName={cityName} />
       ) : (
-        results.map((item) => {
-          if (type === "flight" && "airline" in item)
-            return (
-              <div key={item.id} className="bg-white rounded-lg shadow-md p-6 mb-4">
-                <h3 className="text-xl font-semibold">{item.airline}</h3>
-                <p className="text-gray-600">{item.from} → {item.to}</p>
-                <p className="text-2xl font-bold text-blue-600">${item.price}</p>
-                <button onClick={() => onBook(item)}
-                  className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                  Book Now
-                </button>
-              </div>
+      results.map((item) => {
+        if (type === "flight" && "airline" in item)
+        return (
+          <div key={item.id} className="bg-white rounded-lg shadow-md p-6 mb-4">
+          <Card style={cardStyle}>
+            <CardImg
+            alt="Flight"
+            src="https://images.pexels.com/photos/338504/pexels-photo-338504.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            top
+            />
+            <CardBody>
+            <CardTitle>{item.airline}</CardTitle>
+            <CardText>
+              {item.from} → {item.to}
+            </CardText>
+            <CardText>
+              ${item.price}
+            </CardText>
+            <Button onClick={() => onBook(item)} color="primary" href="javascript:;">
+              Go somewhere
+            </Button>
+            </CardBody>
+          </Card>
+          </div>
             );
           return null;
         })
