@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getHotelsByCityName } from "../api/hotels";
 import { motion } from "framer-motion";
 import { Star, MapPin, DollarSign } from "lucide-react";
-import { debounce } from "lodash"; // ✅ Lodash ka debounce use karenge
+import { debounce } from "lodash"; // ✅ Prevent unnecessary API calls
 
 interface Hotel {
   id: string;
@@ -15,7 +15,7 @@ interface Hotel {
 }
 
 interface HotelListProps {
-  cityName: string; // ✅ Parent se cityName ayega
+  cityName: string;
 }
 
 const HotelList: React.FC<HotelListProps> = ({ cityName }) => {
@@ -36,7 +36,6 @@ const HotelList: React.FC<HotelListProps> = ({ cityName }) => {
     setLoading(false);
   }, 500); // ✅ 500ms delay
 
-  // ✅ Run API call when cityName changes
   useEffect(() => {
     fetchHotels(cityName);
   }, [cityName]);
@@ -44,11 +43,11 @@ const HotelList: React.FC<HotelListProps> = ({ cityName }) => {
   return (
     <div className="p-6">
       <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">
-        🏨 Hotels in {cityName}
+         Hotels in {cityName}
       </h2>
 
       {loading ? (
-        <p className="text-center text-gray-600">Loading hotels...</p>
+        <p className="text-center text-gray-600 animate-pulse">⏳ Fetching hotels...</p>
       ) : hotels?.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {hotels?.map((hotel, index) => (
@@ -56,7 +55,7 @@ const HotelList: React.FC<HotelListProps> = ({ cityName }) => {
               key={hotel.id || index}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white shadow-lg rounded-xl overflow-hidden transform transition-all duration-300 hover:shadow-2xl"
+              className="bg-white shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 hover:shadow-2xl"
             >
               <img
                 src={hotel.image}
